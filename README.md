@@ -6,7 +6,7 @@ Copyright Alex Jeffrey Lin
 
 API Mini-Project
 ================
-Use TensorFlow (Such as Keras library) and Machine Learning model [Such as Convolutional Neural Network(CNN)] to recognize between Cat and Dog. The entire program is running on python 3 notebook on Google Colaboratory. The selected dataset is "Dogs vs. Cats Redux: Kernels Edition" from Kaggle, the link is following: 
+Use TensorFlow library (Such as Keras) and model [Such as Convolutional Neural Network(CNN)] to recognize between Cat and Dog. The entire program is running on python 3 notebook on Google Colaboratory. The selected dataset is "Dogs vs. Cats Redux: Kernels Edition" from Kaggle, the link is following: 
 https://www.kaggle.com/c/dogs-vs-cats-redux-kernels-edition
 
 Preparation

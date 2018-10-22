@@ -7,15 +7,9 @@ import os
 img_width = 208
 img_height = 208
 
-file_dir = '/Users/AlexLin/Desktop/EC601/Tensorflow\ miniproject\ 2/data/train'
-
+file_dir = "train"
 def get_files(file_dir):
-	'''
-	Args: 
-		file_dir: file directory
-	Returns:
-		list of images and labels
-	'''
+	
 	cats = []
 	label_cats = []
 	dogs = []
@@ -47,8 +41,26 @@ def get_files(file_dir):
 
 	return image_list, label_list 
 
-image_list, label_list = get_files(train_dir)
+def get_batch(image, label, image_W, image_H, batch_size, capacity):
+	
+	#use cast to change the format of the data to tensorflow format
+	image = tf.cast(image, tf.string)
+	label = tf.cast(label, tf.int32)
 
+	#make input queue (slice_input_producer args can be found from tensorflow tutorials)
+	input_queue = tf.train.slice_input_producer([image, label])
+ 
+	label = input_queue[1]
+	image_contents = tf.read_file(input_queue[0])
+	#since all images are in jpeg format, use decode_jpeg
+	image = tf.image.decode_jpeg(image_contents, channels=3)
 
+	#now we have to resize the photos using crop or pad (tensorflow API)
+	image = tf.image.resize_image_with_crop_or_pad(image, image_W, image_H)
+	image = tf.image.per_image_standardlization(image)
 
+	image_batch, label_batch = tf.train.batch([image, label]), batch_size = batch_size, num_threads = 64, capacity = capacity)
 
+	label_batch = tf.reshape(label_batch, [batch_size])
+
+	return image_batch, label_batch
